@@ -183,14 +183,14 @@ const Index = () => {
                 <Icon name="ShoppingCart" size={18} />
                 Смотреть каталог
               </button>
-              <button onClick={() => scrollTo(orderRef)}
+              <a href="https://wa.me/79067770743" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-medium transition-all"
                 style={{ border: "1px solid rgba(234,238,245,0.2)", color: "#eaeef5" }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(245,200,0,0.5)")}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,51,74,0.6)")}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(234,238,245,0.2)")}>
                 <Icon name="Phone" size={18} />
-                Оставить заявку
-              </button>
+                +7 906 777 07 43
+              </a>
             </div>
 
             <div className="flex gap-8 animate-fade-in-up delay-400">
@@ -374,20 +374,22 @@ const Index = () => {
                 Возможен заказ нескольких цветов в одной поставке
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-10 py-4 rounded-xl text-sm font-oswald font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
+                <a href="https://wa.me/79067770743" target="_blank" rel="noopener noreferrer"
+                  className="px-10 py-4 rounded-xl text-sm font-oswald font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
                   style={{ background: "#e8334a", color: "#fff", boxShadow: "0 0 30px rgba(232,51,74,0.35)" }}
                   onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 50px rgba(232,51,74,0.55)")}
                   onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 30px rgba(232,51,74,0.35)")}>
                   <Icon name="MessageCircle" size={18} />
                   Написать в WhatsApp
-                </button>
-                <button className="px-10 py-4 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all"
+                </a>
+                <a href="mailto:AdduS@internet.ru"
+                  className="px-10 py-4 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all"
                   style={{ border: "1px solid rgba(45,125,232,0.4)", color: "#eaeef5" }}
                   onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.8)")}
                   onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.4)")}>
                   <Icon name="Mail" size={18} />
-                  Отправить e-mail
-                </button>
+                  AdduS@internet.ru
+                </a>
               </div>
             </div>
           </div>
