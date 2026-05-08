@@ -4,39 +4,39 @@ import Icon from "@/components/ui/icon";
 const GRIPS = [
   {
     id: 1,
-    color: "Чёрно-жёлтые",
-    label: "BLACK / YELLOW",
-    img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/5aceab7e-ffbb-46c5-a6cd-c99e55ed3ab8.jpg",
-    accent: "#f5c800",
-    accentDim: "rgba(245,200,0,0.12)",
-    badge: "ХИТ",
-    badgeBg: "#f5c800",
-    badgeText: "#111",
-    desc: "Самый яркий и заметный вариант. Максимальная видимость и спортивный характер.",
-  },
-  {
-    id: 2,
-    color: "Чёрно-красные",
-    label: "BLACK / RED",
-    img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/99917045-e123-4e71-b0ed-a10b56d34589.jpg",
-    accent: "#e8334a",
-    accentDim: "rgba(232,51,74,0.12)",
-    badge: "СПОРТ",
-    badgeBg: "#e8334a",
-    badgeText: "#fff",
-    desc: "Агрессивный спортивный стиль. Популярен среди турников, МТБ и самокатов.",
-  },
-  {
-    id: 3,
     color: "Чёрно-синие",
     label: "BLACK / BLUE",
     img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/e37666a0-525c-423c-bc3a-7dea36faddb9.jpg",
     accent: "#2d7de8",
     accentDim: "rgba(45,125,232,0.12)",
-    badge: "НОВИНКА",
+    badge: "ХИТ",
     badgeBg: "#2d7de8",
     badgeText: "#fff",
-    desc: "Городской и трейловый стиль. Подходит для велосипедов, самокатов и детского транспорта.",
+    desc: "Самый популярный цвет в линейке AdduS. Городской и трейловый стиль для велосипедов, самокатов и детского транспорта.",
+  },
+  {
+    id: 2,
+    color: "Жёлто-чёрные",
+    label: "YELLOW / BLACK",
+    img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/5aceab7e-ffbb-46c5-a6cd-c99e55ed3ab8.jpg",
+    accent: "#f5c800",
+    accentDim: "rgba(245,200,0,0.12)",
+    badge: "СПОРТ",
+    badgeBg: "#f5c800",
+    badgeText: "#111",
+    desc: "Яркий спортивный характер и максимальная видимость. Популярен среди MTB, турников и тренажёров.",
+  },
+  {
+    id: 3,
+    color: "Чёрно-красные",
+    label: "BLACK / RED",
+    img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/99917045-e123-4e71-b0ed-a10b56d34589.jpg",
+    accent: "#e8334a",
+    accentDim: "rgba(232,51,74,0.12)",
+    badge: "КЛАССИКА",
+    badgeBg: "#e8334a",
+    badgeText: "#fff",
+    desc: "Проверенная классика AdduS. Агрессивный стиль, стабильный спрос во всех сегментах.",
   },
   {
     id: 4,
@@ -45,10 +45,10 @@ const GRIPS = [
     img: "https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/1397c896-f4f6-483e-92f5-168eeb72aadc.jpg",
     accent: "#a0a8b0",
     accentDim: "rgba(160,168,176,0.12)",
-    badge: "КЛАССИКА",
+    badge: "НОВИНКА",
     badgeBg: "#a0a8b0",
     badgeText: "#111",
-    desc: "Нейтральный универсальный цвет. Идеален для садового инвентаря, тренажёров и любого оборудования.",
+    desc: "Новинка в линейке AdduS. Нейтральный универсальный цвет для садового инвентаря и профессиональных тренажёров.",
   },
 ];
 
@@ -110,8 +110,10 @@ const Index = () => {
       {/* ── NAV ── */}
       <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-3"
         style={{ background: "rgba(9,9,15,0.88)", backdropFilter: "blur(18px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="font-oswald font-bold text-lg tracking-widest" style={{ color: "#fff" }}>
-          GRIP<span style={{ color: "#f5c800" }}>PRO</span>
+        <div className="flex items-center gap-3">
+          <img src="https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/c65dd462-3864-4ea0-be12-a665879a3039.jpg"
+            alt="AdduS" className="h-9 w-9 rounded-lg object-contain" style={{ background: "#fff" }} />
+          <span className="font-oswald font-bold text-xl tracking-wide" style={{ color: "#fff" }}>AdduS</span>
         </div>
         <div className="hidden md:flex gap-8">
           {([["Каталог", "catalog"], ["Заказать", "order"]] as [string, string][]).map(([label, id]) => (
@@ -123,7 +125,7 @@ const Index = () => {
           ))}
         </div>
         <button onClick={() => scrollTo(orderRef)} className="btn-neon px-5 py-2 rounded-lg text-xs"
-          style={{ background: "#f5c800", color: "#111" }}>
+          style={{ background: "#e8334a", color: "#fff" }}>
           Заказать оптом
         </button>
       </nav>
@@ -142,16 +144,25 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-16 items-center w-full py-16">
           {/* Text */}
           <div>
+            <div className="flex items-center gap-4 mb-6">
+              <img src="https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/c65dd462-3864-4ea0-be12-a665879a3039.jpg"
+                alt="AdduS" className="h-14 w-14 rounded-2xl object-contain" style={{ background: "#fff", padding: 4 }} />
+              <div>
+                <div className="font-oswald font-bold text-2xl tracking-wide text-white">AdduS</div>
+                <div className="text-xs tracking-widest uppercase" style={{ color: "rgba(234,238,245,0.4)" }}>Официальный дистрибьютор</div>
+              </div>
+            </div>
+
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 text-xs font-medium tracking-widest uppercase"
-              style={{ background: "rgba(245,200,0,0.1)", border: "1px solid rgba(245,200,0,0.3)", color: "#f5c800" }}>
-              <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: "#f5c800" }} />
+              style={{ background: "rgba(220,40,50,0.12)", border: "1px solid rgba(220,40,50,0.35)", color: "#e8334a" }}>
+              <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: "#e8334a" }} />
               Оптовые поставки · от 400 шт
             </div>
 
             <h1 className="font-oswald font-bold mb-5 animate-fade-in-up leading-none"
               style={{ fontSize: "clamp(2.6rem, 6vw, 5.2rem)", lineHeight: 1.0 }}>
               НЕОПРЕНОВЫЕ<br />
-              <span style={{ color: "#f5c800" }}>ГРИПСЫ</span><br />
+              <span style={{ color: "#e8334a" }}>ГРИПСЫ</span><br />
               <span style={{ color: "rgba(234,238,245,0.45)" }}>ОПТОМ</span>
             </h1>
 
@@ -168,7 +179,7 @@ const Index = () => {
             <div className="flex flex-wrap gap-4 mb-10 animate-fade-in-up delay-300">
               <button onClick={() => scrollTo(catalogRef)}
                 className="flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-oswald font-bold tracking-wide uppercase transition-all"
-                style={{ background: "#f5c800", color: "#111", boxShadow: "0 0 30px rgba(245,200,0,0.25)" }}>
+                style={{ background: "#e8334a", color: "#fff", boxShadow: "0 0 30px rgba(232,51,74,0.3)" }}>
                 <Icon name="ShoppingCart" size={18} />
                 Смотреть каталог
               </button>
@@ -185,7 +196,7 @@ const Index = () => {
             <div className="flex gap-8 animate-fade-in-up delay-400">
               {[["4", "ЦВЕТА"], ["400 шт", "МИН. ЗАКАЗ"], ["22 см", "ДЛИНА"]].map(([val, lab]) => (
                 <div key={lab}>
-                  <div className="font-oswald font-bold text-2xl" style={{ color: "#f5c800" }}>{val}</div>
+                  <div className="font-oswald font-bold text-2xl" style={{ color: "#e8334a" }}>{val}</div>
                   <div className="text-xs tracking-widest uppercase" style={{ color: "rgba(234,238,245,0.35)" }}>{lab}</div>
                 </div>
               ))}
@@ -217,7 +228,7 @@ const Index = () => {
             <div key={s.label}
               className={`p-5 rounded-2xl transition-all duration-700 ${specsVisible ? "animate-fade-in-up" : "opacity-0"}`}
               style={{ animationDelay: `${i * 0.08}s`, background: "#12121c", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <Icon name={s.icon as "Ruler"} size={22} className="mb-3" style={{ color: "#f5c800" } as React.CSSProperties} />
+              <Icon name={s.icon as "Ruler"} size={22} className="mb-3" style={{ color: "#2d7de8" } as React.CSSProperties} />
               <div className="font-oswald font-bold text-xl text-white mb-0.5">{s.value}</div>
               <div className="text-xs" style={{ color: "rgba(234,238,245,0.45)" }}>{s.label}</div>
             </div>
@@ -235,8 +246,8 @@ const Index = () => {
           {USES.map((u, i) => (
             <div key={u.text}
               className={`flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all duration-700 ${usesVisible ? "animate-fade-in-up" : "opacity-0"}`}
-              style={{ animationDelay: `${i * 0.07}s`, background: "#12121c", border: "1px solid rgba(245,200,0,0.18)" }}>
-              <Icon name={u.icon as "Bike"} size={15} style={{ color: "#f5c800" } as React.CSSProperties} />
+              style={{ animationDelay: `${i * 0.07}s`, background: "#12121c", border: "1px solid rgba(45,125,232,0.22)" }}>
+              <Icon name={u.icon as "Bike"} size={15} style={{ color: "#2d7de8" } as React.CSSProperties} />
               <span className="text-sm" style={{ color: "rgba(234,238,245,0.8)" }}>{u.text}</span>
             </div>
           ))}
@@ -255,8 +266,8 @@ const Index = () => {
               className={`p-6 rounded-2xl transition-all duration-700 ${featVisible ? "animate-fade-in-up" : "opacity-0"}`}
               style={{ animationDelay: `${i * 0.1}s`, background: "#12121c", border: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: "rgba(245,200,0,0.1)" }}>
-                <Icon name={f.icon as "Hand"} size={20} style={{ color: "#f5c800" } as React.CSSProperties} />
+                style={{ background: "rgba(232,51,74,0.1)" }}>
+                <Icon name={f.icon as "Hand"} size={20} style={{ color: "#e8334a" } as React.CSSProperties} />
               </div>
               <div className="font-oswald font-semibold text-sm tracking-wide text-white mb-1">{f.title}</div>
               <div className="text-xs leading-relaxed" style={{ color: "rgba(234,238,245,0.5)" }}>{f.desc}</div>
@@ -269,7 +280,7 @@ const Index = () => {
       <section ref={catalogRef} id="catalog" className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
         <div ref={catRef}>
           <div className={`text-center mb-14 transition-all duration-700 ${catVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-            <div className="text-xs tracking-widest uppercase mb-3 font-medium" style={{ color: "#f5c800" }}>Ассортимент</div>
+            <div className="text-xs tracking-widest uppercase mb-3 font-medium" style={{ color: "#e8334a" }}>Ассортимент</div>
             <h2 className="font-oswald font-bold text-white" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}>
               КАТАЛОГ ГРИПС
             </h2>
@@ -342,12 +353,16 @@ const Index = () => {
         <div ref={ctaRef}
           className={`max-w-3xl mx-auto text-center transition-all duration-700 ${ctaVisible ? "animate-fade-in-up" : "opacity-0"}`}>
           <div className="rounded-3xl p-10 md:p-16 relative overflow-hidden"
-            style={{ background: "#12121c", border: "1px solid rgba(245,200,0,0.2)" }}>
+            style={{ background: "#12121c", border: "1px solid rgba(232,51,74,0.25)" }}>
             <div className="absolute inset-0 pointer-events-none" style={{
-              background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,200,0,0.07) 0%, transparent 70%)"
+              background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,51,74,0.07) 0%, transparent 70%)"
             }} />
             <div className="relative z-10">
-              <div className="text-xs tracking-widest uppercase mb-4 font-medium" style={{ color: "#f5c800" }}>Оптовый заказ</div>
+              <div className="flex justify-center mb-4">
+                <img src="https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/c65dd462-3864-4ea0-be12-a665879a3039.jpg"
+                  alt="AdduS" className="h-12 w-12 rounded-xl object-contain" style={{ background: "#fff", padding: 3 }} />
+              </div>
+              <div className="text-xs tracking-widest uppercase mb-4 font-medium" style={{ color: "#e8334a" }}>Оптовый заказ AdduS</div>
               <h2 className="font-oswald font-bold text-white mb-4" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
                 ГОТОВЫ СДЕЛАТЬ ЗАКАЗ?
               </h2>
@@ -360,16 +375,16 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="px-10 py-4 rounded-xl text-sm font-oswald font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
-                  style={{ background: "#f5c800", color: "#111", boxShadow: "0 0 30px rgba(245,200,0,0.3)" }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 50px rgba(245,200,0,0.5)")}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 30px rgba(245,200,0,0.3)")}>
+                  style={{ background: "#e8334a", color: "#fff", boxShadow: "0 0 30px rgba(232,51,74,0.35)" }}
+                  onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 50px rgba(232,51,74,0.55)")}
+                  onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 30px rgba(232,51,74,0.35)")}>
                   <Icon name="MessageCircle" size={18} />
                   Написать в WhatsApp
                 </button>
                 <button className="px-10 py-4 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all"
-                  style={{ border: "1px solid rgba(234,238,245,0.2)", color: "#eaeef5" }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(245,200,0,0.5)")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(234,238,245,0.2)")}>
+                  style={{ border: "1px solid rgba(45,125,232,0.4)", color: "#eaeef5" }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.8)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.4)")}>
                   <Icon name="Mail" size={18} />
                   Отправить e-mail
                 </button>
@@ -382,8 +397,10 @@ const Index = () => {
       {/* ── FOOTER ── */}
       <footer className="py-10 px-6 md:px-12 text-center"
         style={{ borderTop: "1px solid rgba(255,255,255,0.05)", color: "rgba(234,238,245,0.28)" }}>
-        <div className="font-oswald text-lg font-bold tracking-widest mb-1">
-          GRIP<span style={{ color: "rgba(245,200,0,0.5)" }}>PRO</span>
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <img src="https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/c65dd462-3864-4ea0-be12-a665879a3039.jpg"
+            alt="AdduS" className="h-7 w-7 rounded-md object-contain" style={{ background: "#fff", padding: 2 }} />
+          <span className="font-oswald text-lg font-bold tracking-wide" style={{ color: "rgba(234,238,245,0.5)" }}>AdduS</span>
         </div>
         <p className="text-xs">Оптовая продажа неопреновых грипс · Минимальный заказ от 400 шт · 4 расцветки в наличии</p>
       </footer>
