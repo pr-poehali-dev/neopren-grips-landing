@@ -91,6 +91,194 @@ function useInView(threshold = 0.12) {
   return { ref, visible };
 }
 
+const COLOR_OPTIONS = [
+  { value: "black-blue", label: "Чёрно-синие", accent: "#2d7de8" },
+  { value: "yellow-black", label: "Жёлто-чёрные", accent: "#f5c800" },
+  { value: "black-red", label: "Чёрно-красные", accent: "#e8334a" },
+  { value: "grey-black", label: "Серо-чёрные", accent: "#a0a8b0" },
+];
+
+function OrderForm() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [colors, setColors] = useState<Record<string, number>>({});
+  const [sent, setSent] = useState(false);
+
+  const totalBoxes = Object.values(colors).reduce((s, v) => s + v, 0);
+  const totalPcs = totalBoxes * 400;
+
+  const toggleColor = (val: string) => {
+    setColors(prev => {
+      if (prev[val] !== undefined) {
+        const next = { ...prev };
+        delete next[val];
+        return next;
+      }
+      return { ...prev, [val]: 1 };
+    });
+  };
+
+  const changeQty = (val: string, delta: number) => {
+    setColors(prev => {
+      const cur = prev[val] ?? 1;
+      const next = Math.max(1, cur + delta);
+      return { ...prev, [val]: next };
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !phone || totalBoxes === 0) return;
+
+    const lines = COLOR_OPTIONS
+      .filter(c => colors[c.value] !== undefined)
+      .map(c => `${c.label}: ${colors[c.value]} кор. (${colors[c.value] * 400} шт)`);
+
+    const text = encodeURIComponent(
+      `Заявка AdduS\nИмя: ${name}\nТел: ${phone}\n\nЗаказ:\n${lines.join("\n")}\n\nИтого: ${totalBoxes} коробок, ${totalPcs} шт`
+    );
+    window.open(`https://max.ru/u/f9LHodD0cOIoL8E6ZlJf_S3kPbtwO1E6YBrsuPaZ0JgL35OAgQlNNE6ZRqo?text=${text}`, "_blank");
+    setSent(true);
+  };
+
+  if (sent) {
+    return (
+      <div className="text-center py-8">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+          style={{ background: "rgba(232,51,74,0.15)", border: "2px solid #e8334a" }}>
+          <Icon name="CheckCircle" size={32} style={{ color: "#e8334a" } as React.CSSProperties} />
+        </div>
+        <h3 className="font-oswald font-bold text-white text-xl mb-2">Заявка отправлена!</h3>
+        <p className="text-sm mb-6" style={{ color: "rgba(234,238,245,0.55)" }}>
+          Мы свяжемся с вами в течение 30 минут через мессенджер MAX
+        </p>
+        <button onClick={() => { setSent(false); setName(""); setPhone(""); setColors({}); }}
+          className="text-xs tracking-widest uppercase font-medium transition-colors hover:text-white"
+          style={{ color: "rgba(234,238,245,0.4)" }}>
+          Оформить ещё заявку
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Контакты */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs tracking-widest uppercase mb-2 font-medium" style={{ color: "rgba(234,238,245,0.5)" }}>
+            Ваше имя
+          </label>
+          <input
+            type="text" value={name} onChange={e => setName(e.target.value)}
+            placeholder="Иван Иванов" required
+            className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+            style={{ background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.1)", color: "#eaeef5" }}
+            onFocus={e => (e.currentTarget.style.borderColor = "rgba(232,51,74,0.6)")}
+            onBlur={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+          />
+        </div>
+        <div>
+          <label className="block text-xs tracking-widest uppercase mb-2 font-medium" style={{ color: "rgba(234,238,245,0.5)" }}>
+            Телефон
+          </label>
+          <input
+            type="tel" value={phone} onChange={e => setPhone(e.target.value)}
+            placeholder="+7 900 000 00 00" required
+            className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+            style={{ background: "#1a1a2e", border: "1px solid rgba(255,255,255,0.1)", color: "#eaeef5" }}
+            onFocus={e => (e.currentTarget.style.borderColor = "rgba(232,51,74,0.6)")}
+            onBlur={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+          />
+        </div>
+      </div>
+
+      {/* Выбор цвета и количества */}
+      <div>
+        <label className="block text-xs tracking-widest uppercase mb-3 font-medium" style={{ color: "rgba(234,238,245,0.5)" }}>
+          Выберите цвет и количество коробок
+        </label>
+        <div className="space-y-2">
+          {COLOR_OPTIONS.map(c => {
+            const selected = colors[c.value] !== undefined;
+            return (
+              <div key={c.value}
+                className="flex items-center justify-between px-4 py-3 rounded-xl transition-all cursor-pointer"
+                style={{
+                  background: selected ? `${c.accent}12` : "#1a1a2e",
+                  border: `1px solid ${selected ? c.accent + "60" : "rgba(255,255,255,0.08)"}`,
+                }}
+                onClick={() => toggleColor(c.value)}>
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 transition-all"
+                    style={{ background: selected ? c.accent : "rgba(255,255,255,0.08)", border: `1px solid ${selected ? c.accent : "rgba(255,255,255,0.2)"}` }}>
+                    {selected && <Icon name="Check" size={12} style={{ color: c.value === "yellow-black" || c.value === "grey-black" ? "#111" : "#fff" } as React.CSSProperties} />}
+                  </div>
+                  <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: c.accent }} />
+                  <span className="text-sm font-medium" style={{ color: selected ? "#eaeef5" : "rgba(234,238,245,0.6)" }}>{c.label}</span>
+                </div>
+                {selected && (
+                  <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
+                    <button type="button" onClick={() => changeQty(c.value, -1)}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-lg font-bold transition-all"
+                      style={{ background: "rgba(255,255,255,0.08)", color: "#eaeef5" }}>−</button>
+                    <span className="font-oswald font-bold text-base w-6 text-center" style={{ color: c.accent }}>
+                      {colors[c.value]}
+                    </span>
+                    <button type="button" onClick={() => changeQty(c.value, 1)}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-lg font-bold transition-all"
+                      style={{ background: "rgba(255,255,255,0.08)", color: "#eaeef5" }}>+</button>
+                    <span className="text-xs ml-1" style={{ color: "rgba(234,238,245,0.35)" }}>кор.</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Итог */}
+      {totalBoxes > 0 && (
+        <div className="flex items-center justify-between px-4 py-3 rounded-xl"
+          style={{ background: "rgba(232,51,74,0.08)", border: "1px solid rgba(232,51,74,0.2)" }}>
+          <span className="text-sm" style={{ color: "rgba(234,238,245,0.6)" }}>Итого:</span>
+          <div className="text-right">
+            <span className="font-oswald font-bold text-white">{totalBoxes} {totalBoxes === 1 ? "коробка" : totalBoxes < 5 ? "коробки" : "коробок"}</span>
+            <span className="text-xs ml-2" style={{ color: "rgba(234,238,245,0.4)" }}>({totalPcs.toLocaleString("ru")} шт)</span>
+          </div>
+        </div>
+      )}
+
+      {/* Кнопка */}
+      <button type="submit"
+        disabled={!name || !phone || totalBoxes === 0}
+        className="w-full py-4 rounded-xl font-oswald font-bold tracking-wide uppercase text-sm flex items-center justify-center gap-2 transition-all"
+        style={{
+          background: name && phone && totalBoxes > 0 ? "#e8334a" : "rgba(232,51,74,0.25)",
+          color: name && phone && totalBoxes > 0 ? "#fff" : "rgba(234,238,245,0.3)",
+          boxShadow: name && phone && totalBoxes > 0 ? "0 0 30px rgba(232,51,74,0.35)" : "none",
+          cursor: name && phone && totalBoxes > 0 ? "pointer" : "not-allowed",
+        }}>
+        <Icon name="Send" size={17} />
+        Отправить заявку в MAX
+      </button>
+
+      <div className="flex items-center justify-center gap-4 pt-1">
+        <a href="mailto:AdduS@internet.ru"
+          className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
+          style={{ color: "rgba(234,238,245,0.35)" }}>
+          <Icon name="Mail" size={13} />
+          AdduS@internet.ru
+        </a>
+        <span style={{ color: "rgba(234,238,245,0.15)" }}>·</span>
+        <span className="text-xs" style={{ color: "rgba(234,238,245,0.35)" }}>
+          Ответим в течение 30 мин
+        </span>
+      </div>
+    </form>
+  );
+}
+
 const Index = () => {
   const catalogRef = useRef<HTMLElement>(null);
   const orderRef = useRef<HTMLElement>(null);
@@ -348,49 +536,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── ORDER CTA ── */}
+      {/* ── ORDER FORM ── */}
       <section ref={orderRef} id="order" className="py-24 px-6 md:px-12">
         <div ref={ctaRef}
-          className={`max-w-3xl mx-auto text-center transition-all duration-700 ${ctaVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-          <div className="rounded-3xl p-10 md:p-16 relative overflow-hidden"
+          className={`max-w-2xl mx-auto transition-all duration-700 ${ctaVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+          <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden"
             style={{ background: "#12121c", border: "1px solid rgba(232,51,74,0.25)" }}>
             <div className="absolute inset-0 pointer-events-none" style={{
               background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,51,74,0.07) 0%, transparent 70%)"
             }} />
             <div className="relative z-10">
-              <div className="flex justify-center mb-4">
+              <div className="flex items-center gap-3 mb-6">
                 <img src="https://cdn.poehali.dev/projects/424a5ffb-c6d5-4da2-88c4-48c11e429a4a/bucket/c65dd462-3864-4ea0-be12-a665879a3039.jpg"
-                  alt="AdduS" className="h-12 w-12 rounded-xl object-contain" style={{ background: "#fff", padding: 3 }} />
+                  alt="AdduS" className="h-11 w-11 rounded-xl object-contain flex-shrink-0" style={{ background: "#fff", padding: 3 }} />
+                <div>
+                  <div className="text-xs tracking-widest uppercase font-medium" style={{ color: "#e8334a" }}>Оптовый заказ AdduS</div>
+                  <h2 className="font-oswald font-bold text-white text-2xl md:text-3xl leading-tight">ОФОРМИТЬ ЗАЯВКУ</h2>
+                </div>
               </div>
-              <div className="text-xs tracking-widest uppercase mb-4 font-medium" style={{ color: "#e8334a" }}>Оптовый заказ AdduS</div>
-              <h2 className="font-oswald font-bold text-white mb-4" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
-                ГОТОВЫ СДЕЛАТЬ ЗАКАЗ?
-              </h2>
-              <p className="mb-2 text-sm leading-relaxed" style={{ color: "rgba(234,238,245,0.6)" }}>
-                Минимальный заказ — <strong className="text-white">1 коробка (400 шт)</strong>.
-                Укажите нужный цвет и количество коробок — ответим в течение 30 минут.
-              </p>
-              <p className="mb-8 text-xs" style={{ color: "rgba(234,238,245,0.3)" }}>
-                Возможен заказ нескольких цветов в одной поставке
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://max.ru/u/f9LHodD0cOIoL8E6ZlJf_S3kPbtwO1E6YBrsuPaZ0JgL35OAgQlNNE6ZRqo" target="_blank" rel="noopener noreferrer"
-                  className="px-10 py-4 rounded-xl text-sm font-oswald font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
-                  style={{ background: "#e8334a", color: "#fff", boxShadow: "0 0 30px rgba(232,51,74,0.35)" }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 50px rgba(232,51,74,0.55)")}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 30px rgba(232,51,74,0.35)")}>
-                  <Icon name="MessageCircle" size={18} />
-                  Написать в MAX
-                </a>
-                <a href="mailto:AdduS@internet.ru"
-                  className="px-10 py-4 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all"
-                  style={{ border: "1px solid rgba(45,125,232,0.4)", color: "#eaeef5" }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.8)")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(45,125,232,0.4)")}>
-                  <Icon name="Mail" size={18} />
-                  AdduS@internet.ru
-                </a>
-              </div>
+
+              <OrderForm />
             </div>
           </div>
         </div>
