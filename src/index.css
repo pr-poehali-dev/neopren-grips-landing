@@ -155,8 +155,8 @@
 
 .grid-bg {
   background-image:
-    linear-gradient(rgba(13, 13, 24, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13, 13, 24, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(0, 245, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 160, 0.06) 1px, transparent 1px);
   background-size: 40px 40px;
   animation: gridScroll 8s linear infinite;
 }
