@@ -152,7 +152,7 @@ function OrderForm() {
     const text = encodeURIComponent(
       `Заявка AdduS\nИмя: ${name}\nТел: ${phone}${address ? `\nГород/адрес: ${address}` : ""}\n\nЗаказ:\n${lines.join("\n")}\n\nИтого: ${totalBoxes} коробок, ${totalPcs} шт`
     );
-    window.open(`https://max.ru/id742407032950_biz?text=${text}`, "_blank");
+    window.open(`https://max.ru/u/f9LHodD0cOIoL8E6ZlJf_S3kPbtwO1E6YBrsuPaZ0JgL35OAgQlNNE6ZRqo?text=${text}`, "_blank");
     setSent(true);
   };
 
