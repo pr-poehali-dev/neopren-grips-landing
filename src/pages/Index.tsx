@@ -68,6 +68,20 @@ const USES = [
   { icon: "Wrench", text: "Различный инвентарь" },
 ];
 
+const BOX_SPECS = [
+  { icon: "MoveHorizontal", label: "Длина", value: "69 см" },
+  { icon: "MoveVertical", label: "Ширина", value: "34 см" },
+  { icon: "ArrowUpDown", label: "Высота", value: "45 см" },
+  { icon: "Weight", label: "Вес", value: "8,9 кг" },
+];
+
+const DELIVERY = [
+  { icon: "MapPin", text: "Отправка по г. Москве" },
+  { icon: "Truck", text: "Доставка в любой регион России" },
+  { icon: "Package", text: 'Транспортная компания «КИТ»' },
+  { icon: "Boxes", text: "СДЭК и другие ТК" },
+];
+
 const FEATURES = [
   { icon: "Hand", title: "Надёжный хват", desc: "Нескользящий материал препятствует проскальзыванию рук" },
   { icon: "Heart", title: "Не натирает ладони", desc: "Мягкий неопрен снижает нагрузку на кисти" },
@@ -285,6 +299,7 @@ const Index = () => {
   const { ref: specsRef, visible: specsVisible } = useInView();
   const { ref: usesRef, visible: usesVisible } = useInView();
   const { ref: featRef, visible: featVisible } = useInView();
+  const { ref: boxRef, visible: boxVisible } = useInView();
   const { ref: catRef, visible: catVisible } = useInView();
   const { ref: ctaRef, visible: ctaVisible } = useInView();
   const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -469,6 +484,53 @@ const Index = () => {
               <div className="text-xs leading-relaxed" style={{ color: "rgba(13,13,24,0.6)" }}>{f.desc}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── КОРОБКА И ДОСТАВКА ── */}
+      <section ref={boxRef as unknown as React.RefObject<HTMLElement>} className="py-16 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Габариты коробки */}
+          <div className={`rounded-3xl p-8 transition-all duration-700 ${boxVisible ? "animate-fade-in-up" : "opacity-0"}`}
+            style={{ background: "#fff", border: "1px solid rgba(13,13,24,0.06)", boxShadow: "0 4px 20px rgba(13,13,24,0.04)" }}>
+            <div className="flex items-center gap-2.5 mb-1">
+              <Icon name="Box" size={20} style={{ color: "#e8334a" } as React.CSSProperties} />
+              <div className="text-xs tracking-widest uppercase font-medium" style={{ color: "#e8334a" }}>Коробка 400 шт</div>
+            </div>
+            <h2 className="font-oswald font-bold text-2xl md:text-3xl mb-6" style={{ color: "#0d0d18" }}>ГАБАРИТЫ И ВЕС</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {BOX_SPECS.map(s => (
+                <div key={s.label} className="p-4 rounded-2xl text-center"
+                  style={{ background: "#f5f6fa", border: "1px solid rgba(13,13,24,0.05)" }}>
+                  <Icon name={s.icon as "Weight"} size={20} className="mb-2 mx-auto" style={{ color: "#2d7de8" } as React.CSSProperties} />
+                  <div className="font-oswald font-bold text-lg" style={{ color: "#0d0d18" }}>{s.value}</div>
+                  <div className="text-xs" style={{ color: "rgba(13,13,24,0.5)" }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Доставка */}
+          <div className={`rounded-3xl p-8 transition-all duration-700 delay-200 ${boxVisible ? "animate-fade-in-up" : "opacity-0"}`}
+            style={{ background: "#fff", border: "1px solid rgba(13,13,24,0.06)", boxShadow: "0 4px 20px rgba(13,13,24,0.04)" }}>
+            <div className="flex items-center gap-2.5 mb-1">
+              <Icon name="Truck" size={20} style={{ color: "#c99a00" } as React.CSSProperties} />
+              <div className="text-xs tracking-widest uppercase font-medium" style={{ color: "#c99a00" }}>Логистика</div>
+            </div>
+            <h2 className="font-oswald font-bold text-2xl md:text-3xl mb-6" style={{ color: "#0d0d18" }}>ДОСТАВКА ПО РОССИИ</h2>
+            <div className="space-y-3">
+              {DELIVERY.map(d => (
+                <div key={d.text} className="flex items-center gap-3 px-4 py-3 rounded-2xl"
+                  style={{ background: "#f5f6fa", border: "1px solid rgba(13,13,24,0.05)" }}>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(45,125,232,0.1)" }}>
+                    <Icon name={d.icon as "Truck"} size={17} style={{ color: "#2d7de8" } as React.CSSProperties} />
+                  </div>
+                  <span className="text-sm font-medium" style={{ color: "rgba(13,13,24,0.8)" }}>{d.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
