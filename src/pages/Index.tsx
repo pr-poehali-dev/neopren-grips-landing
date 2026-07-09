@@ -347,12 +347,20 @@ const Index = () => {
               Оптовые поставки · от 400 шт
             </div>
 
-            <h1 className="font-oswald font-bold mb-5 animate-fade-in-up leading-none"
+            <h1 className="font-oswald font-bold mb-4 animate-fade-in-up leading-none"
               style={{ fontSize: "clamp(2.6rem, 6vw, 5.2rem)", lineHeight: 1.0, color: "#0d0d18" }}>
               НЕОПРЕНОВЫЕ<br />
               <span style={{ color: "#e8334a" }}>ГРИПСЫ</span><br />
               <span style={{ color: "rgba(13,13,24,0.4)" }}>ОПТОМ</span>
             </h1>
+
+            <div className="inline-flex items-baseline gap-2 mb-5 animate-fade-in-up delay-200 px-4 py-2 rounded-xl"
+              style={{ background: "rgba(232,51,74,0.08)", border: "1px solid rgba(232,51,74,0.3)" }}>
+              <span className="font-oswald font-bold" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#e8334a" }}>39 ₽</span>
+              <span className="text-sm font-medium" style={{ color: "rgba(13,13,24,0.6)" }}>
+                за 1 шт при заказе коробки (400 шт)
+              </span>
+            </div>
 
             <p className="text-sm md:text-base leading-relaxed mb-4 animate-fade-in-up delay-200"
               style={{ color: "rgba(13,13,24,0.7)", maxWidth: 500 }}>
