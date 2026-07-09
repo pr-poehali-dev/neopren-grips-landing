@@ -115,6 +115,7 @@ const COLOR_OPTIONS = [
 function OrderForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [colors, setColors] = useState<Record<string, number>>({});
   const [sent, setSent] = useState(false);
 
@@ -149,7 +150,7 @@ function OrderForm() {
       .map(c => `${c.label}: ${colors[c.value]} кор. (${colors[c.value] * 400} шт)`);
 
     const text = encodeURIComponent(
-      `Заявка AdduS\nИмя: ${name}\nТел: ${phone}\n\nЗаказ:\n${lines.join("\n")}\n\nИтого: ${totalBoxes} коробок, ${totalPcs} шт`
+      `Заявка AdduS\nИмя: ${name}\nТел: ${phone}${address ? `\nГород/адрес: ${address}` : ""}\n\nЗаказ:\n${lines.join("\n")}\n\nИтого: ${totalBoxes} коробок, ${totalPcs} шт`
     );
     window.open(`https://max.ru/u/f9LHodD0cOIoL8E6ZlJf_S3kPbtwO1E6YBrsuPaZ0JgL35OAgQlNNE6ZRqo?text=${text}`, "_blank");
     setSent(true);
@@ -166,7 +167,7 @@ function OrderForm() {
         <p className="text-sm mb-6" style={{ color: "rgba(13,13,24,0.55)" }}>
           Мы свяжемся с вами в течение 30 минут через мессенджер MAX
         </p>
-        <button onClick={() => { setSent(false); setName(""); setPhone(""); setColors({}); }}
+        <button onClick={() => { setSent(false); setName(""); setPhone(""); setAddress(""); setColors({}); }}
           className="text-xs tracking-widest uppercase font-medium transition-colors"
           style={{ color: "rgba(13,13,24,0.45)" }}>
           Оформить ещё заявку
@@ -205,6 +206,21 @@ function OrderForm() {
             onBlur={e => (e.currentTarget.style.borderColor = "rgba(13,13,24,0.1)")}
           />
         </div>
+      </div>
+
+      {/* Город / адрес доставки */}
+      <div>
+        <label className="block text-xs tracking-widest uppercase mb-2 font-medium" style={{ color: "rgba(13,13,24,0.55)" }}>
+          Город или адрес доставки
+        </label>
+        <input
+          type="text" value={address} onChange={e => setAddress(e.target.value)}
+          placeholder="Москва, ул. Ленина 1 / ТК КИТ, СДЭК"
+          className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+          style={{ background: "#f5f6fa", border: "1px solid rgba(13,13,24,0.1)", color: "#0d0d18" }}
+          onFocus={e => (e.currentTarget.style.borderColor = "rgba(232,51,74,0.6)")}
+          onBlur={e => (e.currentTarget.style.borderColor = "rgba(13,13,24,0.1)")}
+        />
       </div>
 
       {/* Выбор цвета и количества */}
@@ -371,7 +387,7 @@ const Index = () => {
 
             <div className="inline-flex items-baseline gap-2 mb-5 animate-fade-in-up delay-200 px-4 py-2 rounded-xl"
               style={{ background: "rgba(232,51,74,0.08)", border: "1px solid rgba(232,51,74,0.3)" }}>
-              <span className="font-oswald font-bold" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#e8334a" }}>39 ₽</span>
+              <span className="font-oswald font-bold" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#e8334a" }}>33 ₽</span>
               <span className="text-sm font-medium" style={{ color: "rgba(13,13,24,0.6)" }}>
                 за 1 шт при заказе коробки (400 шт)
               </span>
@@ -380,7 +396,7 @@ const Index = () => {
             <p className="text-sm md:text-base leading-relaxed mb-4 animate-fade-in-up delay-200"
               style={{ color: "rgba(13,13,24,0.7)", maxWidth: 500 }}>
               Мягкие ручки из неопрена для <strong style={{ color: "#0d0d18" }}>турников, велосипедов, самокатов</strong> и садового инвентаря.
-              Нескользящие, не натирают ладони, снижают нагрузку на кисти.
+              Нескользящие, не натирают ладони, снижают нагрузку на кисти. <strong style={{ color: "#0d0d18" }}>Класс A+, высокое качество.</strong>
             </p>
             <p className="text-sm mb-8 animate-fade-in-up delay-300"
               style={{ color: "rgba(13,13,24,0.45)" }}>
